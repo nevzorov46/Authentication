@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6646990D5473E87ECDAED50C /* Pods_Authentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B041A3BC03BA8EFA896B9C6B /* Pods_Authentication.framework */; };
+		C69BB25F2AA6420700A38836 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69BB25E2AA6420700A38836 /* Dynamic.swift */; };
+		C69BB2632AA6661F00A38836 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69BB2622AA6661F00A38836 /* Utils.swift */; };
 		F660449F26C6B829005806E8 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F660449E26C6B828005806E8 /* SecondViewController.swift */; };
 		F6A478DF2641C869003A0C95 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = F6A478D22641C868003A0C95 /* LICENSE.txt */; };
 		F6A478E02641C869003A0C95 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6A478D32641C868003A0C95 /* Roboto-LightItalic.ttf */; };
@@ -32,6 +34,8 @@
 /* Begin PBXFileReference section */
 		42920074995429DDB87262C8 /* Pods-Authentication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authentication.debug.xcconfig"; path = "Target Support Files/Pods-Authentication/Pods-Authentication.debug.xcconfig"; sourceTree = "<group>"; };
 		B041A3BC03BA8EFA896B9C6B /* Pods_Authentication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authentication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C69BB25E2AA6420700A38836 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
+		C69BB2622AA6661F00A38836 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E2AE599890C6EE0E69A135F6 /* Pods-Authentication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authentication.release.xcconfig"; path = "Target Support Files/Pods-Authentication/Pods-Authentication.release.xcconfig"; sourceTree = "<group>"; };
 		F660449E26C6B828005806E8 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		F6A478D22641C868003A0C95 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -76,6 +80,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C69BB2602AA6648B00A38836 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F6E84E962640BE1700A662FF /* ViewController.swift */,
+				F660449E26C6B828005806E8 /* SecondViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C69BB2612AA664B400A38836 /* Supporing Files */ = {
+			isa = PBXGroup;
+			children = (
+				F6E84E9D2640BE1B00A662FF /* LaunchScreen.storyboard */,
+				F6E84E942640BE1700A662FF /* SceneDelegate.swift */,
+				F6E84E922640BE1700A662FF /* AppDelegate.swift */,
+			);
+			path = "Supporing Files";
+			sourceTree = "<group>";
+		};
 		F6A478D12641C7DA003A0C95 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,14 +140,13 @@
 		F6E84E912640BE1700A662FF /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				C69BB2612AA664B400A38836 /* Supporing Files */,
+				C69BB2602AA6648B00A38836 /* ViewControllers */,
 				F6A478D12641C7DA003A0C95 /* Fonts */,
-				F6E84E922640BE1700A662FF /* AppDelegate.swift */,
-				F6E84E942640BE1700A662FF /* SceneDelegate.swift */,
-				F6E84E962640BE1700A662FF /* ViewController.swift */,
 				F6E84E9B2640BE1B00A662FF /* Assets.xcassets */,
-				F6E84E9D2640BE1B00A662FF /* LaunchScreen.storyboard */,
 				F6E84EA02640BE1B00A662FF /* Info.plist */,
-				F660449E26C6B828005806E8 /* SecondViewController.swift */,
+				C69BB25E2AA6420700A38836 /* Dynamic.swift */,
+				C69BB2622AA6661F00A38836 /* Utils.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -265,9 +287,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F660449F26C6B829005806E8 /* SecondViewController.swift in Sources */,
+				C69BB25F2AA6420700A38836 /* Dynamic.swift in Sources */,
 				F6E84E972640BE1700A662FF /* ViewController.swift in Sources */,
 				F6E84E932640BE1700A662FF /* AppDelegate.swift in Sources */,
 				F6E84E952640BE1700A662FF /* SceneDelegate.swift in Sources */,
+				C69BB2632AA6661F00A38836 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

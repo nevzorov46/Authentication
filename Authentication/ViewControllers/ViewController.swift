@@ -10,12 +10,26 @@ import JMMaskTextField_Swift
 
 class ViewController: UIViewController {
     
-    var mainImage = UIImageView()
-    var bottomText = UILabel()
-    var countryCode = UILabel()
-    var continueButton = UIButton()
-    var devidingLine = UIView()
-    var textField = JMMaskTextField()
+    private let mainImage = UIImageView()
+    private let bottomText = UILabel()
+    private let countryCode = UILabel()
+    private let continueButton = UIButton()
+    private let devidingLine = UIView()
+    private let textField = JMMaskTextField()
+    private var keyboardHeight: CGFloat?
+    private var bottomContraint: NSLayoutConstraint!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        view.backgroundColor = UIColor.mainBlue
+        setupView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
 
     private func setupImage() {
         view.addSubview(mainImage)
@@ -33,10 +47,11 @@ class ViewController: UIViewController {
         bottomText.text = "Ознакомтесь с договором аренды. Регистрируясь или авторизуясь, вы принимаете его условия"
         bottomText.textColor = .white
         bottomText.textAlignment = .center
-        bottomText.font = UIFont(name: "Roboto-Regular", size: 10)
+        bottomText.font = .rbRegular(size: 10)
         bottomText.numberOfLines = 0
+        bottomContraint = bottomText.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15)
         NSLayoutConstraint.activate([
-            view.bottomAnchor.constraint(equalTo: bottomText.bottomAnchor, constant: 15),
+            bottomContraint!,
             bottomText.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bottomText.widthAnchor.constraint(equalToConstant: 256)
         ])
@@ -69,7 +84,6 @@ class ViewController: UIViewController {
             view.trailingAnchor.constraint(equalTo: devidingLine.trailingAnchor, constant: 31),
             devidingLine.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 31),
             continueButton.topAnchor.constraint(equalTo: devidingLine.bottomAnchor, constant: 49)
-   
         ])
     }
     
@@ -78,31 +92,29 @@ class ViewController: UIViewController {
         countryCode.translatesAutoresizingMaskIntoConstraints = false
         countryCode.textColor = .white
         countryCode.text = "+7"
-        countryCode.font = UIFont(name: "Roboto-Bold", size: 24)
+        countryCode.font = .rbBold(size: 24)
         NSLayoutConstraint.activate([
             countryCode.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             devidingLine.topAnchor.constraint(equalTo: countryCode.bottomAnchor, constant: 8),
             countryCode.heightAnchor.constraint(equalToConstant: 24),
             countryCode.widthAnchor.constraint(equalToConstant: 27)
-        
         ])
     }
     
     private func setupTextField() {
         view.addSubview(textField)
+        textField.keyboardType = .numberPad
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.maskString = "000-000-00-00"
         textField.textColor = .white
-        textField.font = UIFont(name: "Roboto-Bold", size: 24)
-        textField.attributedPlaceholder = NSAttributedString(string: "Введите номер телефона", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name: "Roboto-Regular", size: 12) ?? UIFont.systemFont(ofSize: 12)])
+        textField.font = .rbBold(size: 24)
+        textField.attributedPlaceholder = NSAttributedString(string: "Введите номер телефона", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.rbRegular(size: 12)])
         
         NSLayoutConstraint.activate([
             textField.leadingAnchor.constraint(equalTo: countryCode.trailingAnchor, constant: 15),
             devidingLine.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 4)
- 
         ])
     }
-    
     
     private func setupView() {
       setupImage()
@@ -112,22 +124,39 @@ class ViewController: UIViewController {
       setupCountryCode()
       setupTextField()
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.mainBlue
-        setupView()
-        self.title = "Authentication"
-    }
 
+    private func validate(value: String) -> Bool {
+        let PHONE_REGEX = "^\\d{3}-\\d{3}-\\d{4}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        let result = phoneTest.evaluate(with: value)
+        return result
+    }
+    
     @objc func buttonAction() {
-        //print("Button pressed")
         let secondVc = SecondViewController()
         navigationController?.pushViewController(secondVc, animated: true)
     }
+    
+    @objc func dismissKeyboard() {
+        textField.endEditing(true)
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            self.keyboardHeight = keyboardRectangle.height
+            self.continueButton.isHidden = true
+            self.bottomText.isHidden = true
+            if bottomContraint.constant == -15 {
+                bottomContraint.constant = bottomContraint.constant + self.keyboardHeight! - 500
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        self.continueButton.isHidden = false
+        self.bottomText.isHidden = false
+        bottomContraint.constant = -15
+    }
 
-}
-
-extension UIColor {
-    static var mainBlue = UIColor(red: 0.016, green: 0.482, blue: 0.973, alpha: 1)
 }

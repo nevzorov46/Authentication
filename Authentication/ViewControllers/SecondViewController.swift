@@ -9,11 +9,16 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
-    let readyButton = UIButton()
-    let SMSInfo = UILabel()
-    let horizontalStack = UIStackView()
-    let topText = UILabel()
+    private let readyButton = UIButton()
+    private let SMSInfo = UILabel()
+    private let horizontalStack = UIStackView()
+    private let topText = UILabel()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        setupView()
+    }
 
     private func setupReadyButton() {
         view.addSubview(readyButton)
@@ -35,7 +40,7 @@ class SecondViewController: UIViewController {
     private func setupTopText() {
         view.addSubview(topText)
         topText.translatesAutoresizingMaskIntoConstraints = false
-        topText.font = UIFont(name: "Roboto-Bold", size: 24)
+        topText.font = .rbBold(size: 24)
         topText.text = "Введите код из СМС"
         topText.textColor = .black
         
@@ -73,7 +78,7 @@ class SecondViewController: UIViewController {
         textField.tintColor = .black
         textField.layer.borderWidth = 1
         
-        let borderColor = UIColor(red: 215/255, green: 215/255, blue: 215/255, alpha: 1).cgColor
+        let borderColor = UIColor.borderColor.cgColor
         textField.layer.borderColor = borderColor
         horizontalStack.addArrangedSubview(textField)
         NSLayoutConstraint.activate([
@@ -86,9 +91,9 @@ class SecondViewController: UIViewController {
     private func setupSMSInfo() {
         view.addSubview(SMSInfo)
         SMSInfo.translatesAutoresizingMaskIntoConstraints = false
-        SMSInfo.font = UIFont(name: "Roboto-Regular", size: 14)
+        SMSInfo.font = .rbRegular(size: 14)
         SMSInfo.text = "Повторно отправить СМС с кодом можно будет через 15 секунд"
-        SMSInfo.textColor = UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1)
+        SMSInfo.textColor = .mainGrey
         SMSInfo.numberOfLines = 0
         SMSInfo.textAlignment = .center
         NSLayoutConstraint.activate([
@@ -106,10 +111,4 @@ class SecondViewController: UIViewController {
         setupSMSInfo()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        setupView()
-    }
-
 }
